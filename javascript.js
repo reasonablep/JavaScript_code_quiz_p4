@@ -1,0 +1,1 @@
+// api.giphy.com/v1/gifs/search for API for giphys
