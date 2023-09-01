@@ -1,3 +1,5 @@
+function generateQuiz();
+
 let quizContainer = document.getElementById('quiz');
 let resultsContainer = document.getElementById('results');
 let submitButton = document.getElementById('submit');
@@ -125,11 +127,11 @@ function renderQuestion(quizQuestions, quizContainer) {
     quizContainer.innerHTML = output.join(''); {
 
 
-    for (let i=0; i < questions.length; i++) {
+    for (let i=0; i < quizQuestions.length; i++) {
 
         userAnswer = [];
     
-        for (letter in questions[i].Answers) {
+        for (letter in quizQuestions[i].Answers) {
 
             answers.push("card" + )
         
@@ -143,11 +145,14 @@ function renderQuestion(quizQuestions, quizContainer) {
 
     }
 
-    addEventListener('click', renderQuestion (questions, quizContainer));
+    addEventListener('click', renderQuestion (quizQuestions, quizContainer));
+
+
+
 
     
 
-function showResults(questions, quizContainer, resultsContainer) {
+function showResults(quizQuestions, quizContainer, resultsContainer) {
 
     let resultsContainer = quizContainer.querySelectorAll('answers')
 
@@ -157,7 +162,7 @@ function showResults(questions, quizContainer, resultsContainer) {
 
 for (let i=0; i<questions.length; i++) {
 
-    userAnswer= (answerContainers[i].querySelector('input [name= question]:checked')); {
+    userAnswer= (answerContainers[i].querySelector('#answers')); {
         if (userAnswer === questions[i].correctAnswer) {
 
             numCorrect++; 
@@ -169,4 +174,4 @@ for (let i=0; i<questions.length; i++) {
 
 submitButton.onclick = function(showResults);
 
-function generateQuiz(questions, quizContainer, resultsContainer, submitButton) 
+function generateQuiz(questions, quizContainer, resultsContainer, submitButton);
