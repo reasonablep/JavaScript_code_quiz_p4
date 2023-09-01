@@ -1,6 +1,8 @@
-function generateQuiz(questions, quizContainer, resultsContainer, submitButton) {
+let quizContainer = document.getElementById('quiz');
+let resultsContainer = document.getElementById('results');
+let submitButton = document.getElementById('submit');
 
-function renderQuestion(questions, quizContainer) {
+function renderQuestion(quizQuestions, quizContainer) {
 
     let quizQuestions = [
         {
@@ -90,12 +92,12 @@ function renderQuestion(questions, quizContainer) {
     
         {
     
-            Q7: ,
+            Q7: "An example of a boolean is,"
             Answers: {
-                a. "link",
-                b. "style",
-                c. "src",
-                d. "script"
+                a. "A string of numbers",
+                b. "Letters in quotation marks",
+                c. "An array of objects",
+                d. "A true or false value"
     
             },
     
@@ -105,50 +107,23 @@ function renderQuestion(questions, quizContainer) {
     
         {
     
-            Q8: "What is the HTML tag for linking a JavaScript file?",
+            Q8: "What is an example of a truthy value?",
             Answers: {
-                a. "link",
-                b. "style",
-                c. "src",
-                d. "script"
+                a. "0",
+                b. "Infinity",
+                c. "true == false",
+                d. "null"
     
             },
     
             correctAnswer: 'd'
     
-        },
-    
-        {
-    
-            Q9: "What is the HTML tag for linking a JavaScript file?",
-            Answers: {
-                a. "link",
-                b. "style",
-                c. "src",
-                d. "script"
-    
-            },
-    
-            correctAnswer: 'd'
-    
-        },
-    
-        {
-    
-            Q10: "What is the HTML tag for linking a JavaScript file?",
-            Answers: {
-                a. "link",
-                b. "style",
-                c. "src",
-                d. "script"
-            },
-            correctAnswer: 'd'
         }
+
     ];
 
-    quizContainer.innerHTML = output.join('');
+    quizContainer.innerHTML = output.join(''); {
 
-}
 
     for (let i=0; i < questions.length; i++) {
 
@@ -156,13 +131,14 @@ function renderQuestion(questions, quizContainer) {
     
         for (letter in questions[i].Answers) {
 
-            answers.push(
-            '<div> <input type="button" name="question" value="letter">'
+            answers.push("card" + )
+        
             );
-            output.push(
-            '<div class="question"></div>'
+
+            output.push(".questions")
+
             );
-        }}; 
+        }; 
 
 
     }
@@ -191,7 +167,6 @@ for (let i=0; i<questions.length; i++) {
 }
 
 
-submitButton.on('click') = function()
+submitButton.onclick = function(showResults);
 
-
- 
+function generateQuiz(questions, quizContainer, resultsContainer, submitButton) 
