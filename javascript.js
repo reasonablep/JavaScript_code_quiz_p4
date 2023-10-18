@@ -1,25 +1,26 @@
-let displayEl = $('#display');
-let startGameButton = $('#start-game-btn');
-let quizQuestions = $('#questions');
+let startGameButton = ('.start-game-button');
+let quizContainer = document.getElementById('#quiz');
 
+let quizQuestions = {
 
-    function quizQuestions ()
-        let questions = [ {
+            
+            [ {
 
-            "Q1: What is the opening tag for an array?", 
-            const answers {
+                question: "Q1 - What is the opening tag for an array?", 
+                answers: {
                 a: "[",
                 b: "(",
                 c: "/",
                 d: "<"
-            };
-            const correctAnswer{'a'}
+            },
+
+            correctAnswer: 'a'
 
         },
     
         {
-            Q2: "What is the HTML tag for linking a JavaScript file?",
-            answers {
+                question: "Q2 - What is the HTML tag for linking a JavaScript file?",
+                answers: {
                 a: "link",
                 b: "style",
                 c: "src",
@@ -32,8 +33,8 @@ let quizQuestions = $('#questions');
     
         {
     
-            Q3: "What is the proper way to call a JavaScript function?",
-            answers: {
+                question: "Q3 - What is the proper way to call a JavaScript function?",
+                answers: {
                 a: ';',
                 b: '[]',
                 c: '<>',
@@ -47,7 +48,7 @@ let quizQuestions = $('#questions');
     
             {
     
-        Q4: "What is the symbol for a JQUERY in JavaScript?",
+            question: "Q4 - What is the symbol for utilizing JQUERY in JavaScript?",
             answers: {
             a: "+",
             b: "&",
@@ -63,7 +64,7 @@ let quizQuestions = $('#questions');
             {
     
     
-            Q5: "What is the function of .length?",
+            question: "Q5 - What is the function of .length?",
             answers: {
                 a: "It returns the number of elements in an array or object",
                 b: "It styles the length of an element",
@@ -78,8 +79,8 @@ let quizQuestions = $('#questions');
     
         { 
     
-            Q6: "The arguments in a for loop are, ",
-            answers: {
+                question: "Q6 - The arguments in a for loop are, ",
+                answers: {
                 a: "i=;, i><;, i+-",
                 b: "(elementName)",
                 c: "Variables",
@@ -93,8 +94,8 @@ let quizQuestions = $('#questions');
     
         {
     
-            Q7: "An example of a boolean is,"
-            answers: {
+                question: "Q7 - An example of a boolean is,",
+                answers: {
                 a: "A string of numbers",
                 b: "Letters in quotation marks",
                 c: "An array of objects",
@@ -108,28 +109,32 @@ let quizQuestions = $('#questions');
     
         {
     
-            Q8: "What is an example of a truthy value?",
-            answers: {
+                question: "Q8 - What is an example of a truthy value?",
+                answers: {
                 a: "0",
                 b: "Infinity",
                 c: "true == false",
-                d:"null"
+                d: "null"
     
             },
     
             correctAnswer: 'd'
+
+        }
     
-        }
+        ]
+}
+    
 
-        startGameButton.on('click', '<div>', function (event){
+    startGameButton.addEventListener('click', function () {
 
-            let startGameBtn = $('<div>');
+        function renderQuiz {
+
+            let startGameButton = document.createElement('quiz');
+            startGameButton.addClass('.question');
+            startGameButton.textContent = quizQuestions.question[0];
+            quizContainer.appendChild(startGameButton);
         
-            startGameButton.addClass('button');
         
-            startGameButton.text($(event.target).attr('data-question'));
-        
-            startGameButton.text(quizQuestions, "Let's start the game!");
-        
-            startGameBtn();
-        }
+        };
+});
