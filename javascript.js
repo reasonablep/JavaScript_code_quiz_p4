@@ -139,6 +139,25 @@ let quizQuestions = [
             let questionEl = document.createElement('div');
             questionEl.textContent = currentQuestion.questions;
             quizContainer.append(questionEl);
+
+            Object.keys(currentQuestion.answers).forEach(function (choice, index) {
+                
+                const answerEl = document.createElement('div');
+                const userInput = document.createElement('input');
+                userInput.type = 'radio';
+                userInput.name = 'answer';
+                radioInput.value = choice;
+                answerEl.appendChild(radioInput);
+                answerEl.appendChild(document.createTextNode(`${choice}: ${currentQuestion.answers[choice]}`));
+                quizContainer.append(answerEl);
+            })
+
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Next';
+            nextButton.addEventListener('click', function () {
+                questionIndex++;
+                renderQuestion();
+            });
         
 
             }
@@ -164,4 +183,9 @@ let quizQuestions = [
     //     }
     // };
 
-    startGameButton.addEventListener('click', renderQuestion);
+    function startQuiz() {
+        questionIndex = 0;
+        renderQuestion();
+    }
+
+    startGameButton.addEventListener('click', startQuiz);
