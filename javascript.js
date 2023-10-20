@@ -1,10 +1,11 @@
-let startGameButton = ('.start-game-button');
-let quizContainer = document.getElementById('#quiz');
+let startGameButton = document.querySelector('.start-game-button');
+let quizContainer = document.getElementById('quiz');
+let quizForm = document.getElementById('quiz-form');
 
-let quizQuestions = {
+let quizQuestions = [
 
             
-            [ {
+         {
 
                 question: "Q1 - What is the opening tag for an array?", 
                 answers: {
@@ -120,21 +121,47 @@ let quizQuestions = {
     
             correctAnswer: 'd'
 
+        
+    }
+    
+        ];
+
+        let questionIndex = 0;
+
+        function renderQuestion () {
+
+            const currentQuestion = quizQuestions[questionIndex]
+
+            if (currentQuestion) {
+            quizContainer.textContent = '';
+
+            
+            let questionEl = document.createElement('div');
+            questionEl.textContent = currentQuestion.questions;
+            quizContainer.append(questionEl);
+        
+
+            }
         }
+
+            // for (let i=0; i< quizQuestions.length; i++) {
+
+            // let questionEl = document.createElement('div');
+            // questionEl.textContent = quizQuestions[i].question;
+            // quizContainer.append(questionEl);
+
+    //         let answersArr = Object.values(quizQuestions[i].answers);
+    //         answersArr.forEach(function (answerText) {
+    //             let answerEl = document.createElement('div');
+    //             answerEl.textContent = answerText;
+    //             quizContainer.append(answerEl);
+
+    //         });
     
-        ]
-}
-    
+    //         let correctEl = quizQuestions[i].correctAnswer;
+    //         quizContainer.append(correctEl);
+         
+    //     }
+    // };
 
-    startGameButton.addEventListener('click', function () {
-
-        function renderQuiz {
-
-            let startGameButton = document.createElement('quiz');
-            startGameButton.addClass('.question');
-            startGameButton.textContent = quizQuestions.question[0];
-            quizContainer.appendChild(startGameButton);
-        
-        
-        };
-});
+    startGameButton.addEventListener('click', renderQuestion);
