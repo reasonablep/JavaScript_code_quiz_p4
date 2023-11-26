@@ -1,6 +1,7 @@
 let startGameButton = document.querySelector('.start-game-button');
 let quizContainer = document.getElementById('quiz');
-let quizForm = document.getElementById('quiz-form');
+// let quizForm = document.getElementById('quiz-form');
+let nextButton = document.querySelector('.next-button');
 
 let quizQuestions = [
 
@@ -137,51 +138,35 @@ let quizQuestions = [
 
             
             let questionEl = document.createElement('div');
-            questionEl.textContent = currentQuestion.questions;
+            questionEl.textContent = currentQuestion.question;
             quizContainer.append(questionEl);
 
-            Object.keys(currentQuestion.answers).forEach(function (choice, index) {
+            Object.keys(currentQuestion.answers).forEach(function (choice) {
                 
                 const answerEl = document.createElement('div');
                 const userInput = document.createElement('input');
                 userInput.type = 'radio';
                 userInput.name = 'answer';
-                radioInput.value = choice;
-                answerEl.appendChild(radioInput);
+                userInput.value = choice;
+                answerEl.appendChild(userInput);
                 answerEl.appendChild(document.createTextNode(`${choice}: ${currentQuestion.answers[choice]}`));
                 quizContainer.append(answerEl);
-            })
-
-            const nextButton = document.createElement('button');
-            nextButton.textContent = 'Next';
-            nextButton.addEventListener('click', function () {
-                questionIndex++;
-                renderQuestion();
             });
-        
+
+            if (!quizContainer.contains(nextButton))
+            {
+                quizContainer.appendChild(nextButton);
+            }
 
             }
         }
 
-            // for (let i=0; i< quizQuestions.length; i++) {
-
-            // let questionEl = document.createElement('div');
-            // questionEl.textContent = quizQuestions[i].question;
-            // quizContainer.append(questionEl);
-
-    //         let answersArr = Object.values(quizQuestions[i].answers);
-    //         answersArr.forEach(function (answerText) {
-    //             let answerEl = document.createElement('div');
-    //             answerEl.textContent = answerText;
-    //             quizContainer.append(answerEl);
-
-    //         });
-    
-    //         let correctEl = quizQuestions[i].correctAnswer;
-    //         quizContainer.append(correctEl);
-         
-    //     }
-    // };
+                    // const nextButton = document.createElement('next-button');
+                    nextButton.addEventListener('click', function () {
+                        questionIndex++;
+                        renderQuestion();
+                    
+                    });
 
     function startQuiz() {
         questionIndex = 0;
