@@ -3,8 +3,10 @@ let quizContainer = document.getElementById('quiz');
 let nextButton = document.querySelector('.next-button');
 let submitButton = document.getElementById('submit-button');
 
-let quizQuestions = [
 
+// Define quiz questions array
+
+let quizQuestions = [
 
     {
 
@@ -126,8 +128,12 @@ let quizQuestions = [
 
 ];
 
+// Set indices for quiz number and number correct
+
 let questionIndex = 0;
 let correctCounter = 0;
+
+// Render each question and increment through the array
 
 function renderQuestion() {
 
@@ -142,40 +148,34 @@ function renderQuestion() {
         quizContainer.append(questionEl);
 
         const correctAnswer = currentQuestion.correctAnswer;
-        console.log(correctAnswer);
 
         Object.keys(currentQuestion.answers).forEach(function (choice) {
 
             const answerEl = document.createElement('div');
             const userInput = document.createElement('input');
 
-
-
             userInput.type = 'radio';
             userInput.name = 'answer';
-            userInput.classList.add('answer');
             userInput.value = choice;
 
-            const answerContainer = document.getElementById('quiz-form');
-            answerContainer.appendChild(userInput);
 
             answerEl.appendChild(userInput);
             answerEl.appendChild(document.createTextNode(`${choice}: ${currentQuestion.answers[choice]}`));
             quizContainer.append(answerEl);
-            console.log(userInput.value);
 
+            // Increment correct count if answer is correct
 
-            userInput.addEventListener('change', function() {
+            // Store key-value pair of correct answers
+
+            userInput.addEventListener('change', function () {
                 if (userInput.value === correctAnswer) {
-                    localStorage.setItem(`question_${questionIndex+ 1}_correct_answer`, correctAnswer)
+                    localStorage.setItem(`question_${questionIndex + 1}_correct_answer`, correctAnswer)
                     correctCounter++
-                    console.log(correctCounter);
 
                 }
             });
 
-            });
-
+        });
 
 
         nextButton.textContent = 'Next';
@@ -183,8 +183,10 @@ function renderQuestion() {
 
     } else {
 
+        // Display number of correct answers
+
         let quizResults = document.createElement('div');
-        quizResults.textContent = 'Number Correct = '+ correctCounter+ 'of 8';
+        quizResults.textContent = 'Number Correct = ' + correctCounter + 'of 8';
         quizContainer.append(quizResults);
 
         nextButton.textContent = 'Thanks for playing!';
