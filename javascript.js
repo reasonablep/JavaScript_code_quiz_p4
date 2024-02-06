@@ -145,12 +145,12 @@ function setTime() {
 
 function endQuiz() {
 
-    timeEl.textcontent = 'Time is up!';
     timerEndQuiz();
 
 };
 
 function timerEndQuiz() {
+    timeEl.textcontent = 'Time is up!';
     let quizResults = document.createElement('div');
     quizResults.textContent = 'Number Correct = ' + correctCounter + 'of 8';
     quizContainer.append(quizResults);
@@ -158,13 +158,6 @@ function timerEndQuiz() {
     nextButton.textContent = 'Thanks for playing!';
     nextButton.disabled = true;
 }
-
-
-
-// Set indices for quiz number and number correct
-
-let questionIndex = 0;
-let correctCounter = 0;
 
 // Render each question and increment through the array
 
@@ -201,15 +194,31 @@ function renderQuestion() {
             // Store key-value pair of correct answers
 
             userInput.addEventListener('change', function () {
+                let banner = document.createElement('div');
+                banner.classList.add('answer-banner');
                 if (userInput.value === correctAnswer) {
                     localStorage.setItem(`question_${questionIndex + 1}_correct_answer`, correctAnswer)
                     correctCounter++
+                    banner.textContent = 'Correct';
+        
+                } else { 
 
+                    banner.textContent = 'Incorrect'
                 }
+
+                quizContainer.appendChild(banner);
+                setTimeout(function () {
+                    banner.remove();
+                }, 1500
+                );
+
+                document.querySelectorAll('input[name="answer"]').forEach(input=> {
+                    input.disabled = true;
+                });
+
             });
 
         });
-
 
         nextButton.textContent = 'Next';
         submitButton.disabled = true;
@@ -220,7 +229,7 @@ function renderQuestion() {
         // Display number of correct answers
 
         let quizResults = document.createElement('div');
-        quizResults.textContent = 'Number Correct = ' + correctCounter + 'of 8';
+        quizResults.textContent = 'Number Correct = ' + correctCounter + ' of 8';
         quizContainer.append(quizResults);
 
         nextButton.textContent = 'Thanks for playing!';
@@ -235,9 +244,17 @@ nextButton.addEventListener('click', function () {
 
 });
 
-function startQuiz() {
+function resetQuiz() {
     questionIndex = 0;
     correctCounter = 0;
+    secondsLeft = 60;
+    timeEl.textContent = 'Time remaining: ' + secondsLeft;
+    quizContainer.textContent = '';
+}
+
+function startQuiz() {
+
+    resetQuiz();
     setTime();
     renderQuestion();
 }
