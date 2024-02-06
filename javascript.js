@@ -2,7 +2,8 @@ let startGameButton = document.querySelector('.start-game-button');
 let quizContainer = document.getElementById('quiz');
 let nextButton = document.querySelector('.next-button');
 let submitButton = document.getElementById('submit-button');
-
+var timeEl = document.querySelector('.time');
+var secondsLeft = 60;
 
 // Define quiz questions array
 
@@ -128,6 +129,38 @@ let quizQuestions = [
 
 ];
 
+function setTime() {
+    var timerInterval = setInterval(function() {
+        secondsLeft--;
+
+        timeEl.textContent = 'Time remaining: '+ secondsLeft;
+
+        if (secondsLeft <= 0) {
+            clearInterval(timerInterval);
+
+            endQuiz();
+        }
+    }, 1000);
+}
+
+function endQuiz() {
+
+    timeEl.textcontent = 'Time is up!';
+    timerEndQuiz();
+
+};
+
+function timerEndQuiz() {
+    let quizResults = document.createElement('div');
+    quizResults.textContent = 'Number Correct = ' + correctCounter + 'of 8';
+    quizContainer.append(quizResults);
+
+    nextButton.textContent = 'Thanks for playing!';
+    nextButton.disabled = true;
+}
+
+
+
 // Set indices for quiz number and number correct
 
 let questionIndex = 0;
@@ -183,6 +216,7 @@ function renderQuestion() {
 
     } else {
 
+
         // Display number of correct answers
 
         let quizResults = document.createElement('div');
@@ -191,6 +225,7 @@ function renderQuestion() {
 
         nextButton.textContent = 'Thanks for playing!';
         nextButton.disabled = true;
+
     }
 }
 
@@ -202,6 +237,8 @@ nextButton.addEventListener('click', function () {
 
 function startQuiz() {
     questionIndex = 0;
+    correctCounter = 0;
+    setTime();
     renderQuestion();
 }
 
