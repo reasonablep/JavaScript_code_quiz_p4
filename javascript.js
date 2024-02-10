@@ -1,9 +1,13 @@
+// Global variable definitions
+
 let startGameButton = document.querySelector('.start-game-button');
 let quizContainer = document.getElementById('quiz');
 let nextButton = document.querySelector('.next-button');
-let submitButton = document.getElementById('submit-button');
+let submitButton = document.getElementById('submit-button').hidden = true;
 var timeEl = document.querySelector('.time');
 var secondsLeft = 60;
+let initialInput = document.createElement('input');
+let savedScores = document.createElement('div');
 
 // Define quiz questions array
 
@@ -119,7 +123,7 @@ let quizQuestions = [
             a: "0",
             b: "Infinity",
             c: "true == false",
-            d: "null"
+            d: "1"
 
         },
 
@@ -129,11 +133,13 @@ let quizQuestions = [
 
 ];
 
+// Function to set a timer that ends the quiz when it expires
+
 function setTime() {
-    var timerInterval = setInterval(function() {
+    var timerInterval = setInterval(function () {
         secondsLeft--;
 
-        timeEl.textContent = 'Time remaining: '+ secondsLeft;
+        timeEl.textContent = 'Time remaining: ' + secondsLeft;
 
         if (secondsLeft <= 0) {
             clearInterval(timerInterval);
@@ -145,19 +151,30 @@ function setTime() {
 
 function endQuiz() {
 
-    timerEndQuiz();
-
-};
-
-function timerEndQuiz() {
-    timeEl.textcontent = 'Time is up!';
+    timeEl.textContent = 'Time is up!';
+    clearInterval(timerInterval);
     let quizResults = document.createElement('div');
     quizResults.textContent = 'Number Correct = ' + correctCounter + 'of 8';
     quizContainer.append(quizResults);
 
     nextButton.textContent = 'Thanks for playing!';
     nextButton.disabled = true;
-}
+
+    };
+
+
+// Function to store initials w/ scores in browser localStorage
+
+function saveScore(initials, score) {
+    if (initials.trim() !== "") {
+    let allScores = JSON.parse(localStorage.getItem('quizScores')) || [];
+
+    allScores.push({ initials: initials, score: score });
+    localStorage.setItem('quizScores', JSON.stringify(allScores));
+    } else {
+        console.log('No initials entered');
+    }
+};
 
 // Render each question and increment through the array
 
@@ -190,7 +207,6 @@ function renderQuestion() {
             quizContainer.append(answerEl);
 
             // Increment correct count if answer is correct
-
             // Store key-value pair of correct answers
 
             userInput.addEventListener('change', function () {
@@ -200,8 +216,8 @@ function renderQuestion() {
                     localStorage.setItem(`question_${questionIndex + 1}_correct_answer`, correctAnswer)
                     correctCounter++
                     banner.textContent = 'Correct';
-        
-                } else { 
+
+                } else {
 
                     banner.textContent = 'Incorrect'
                 }
@@ -212,7 +228,7 @@ function renderQuestion() {
                 }, 1500
                 );
 
-                document.querySelectorAll('input[name="answer"]').forEach(input=> {
+                document.querySelectorAll('input[name="answer"]').forEach(input => {
                     input.disabled = true;
                 });
 
@@ -225,7 +241,6 @@ function renderQuestion() {
 
     } else {
 
-
         // Display number of correct answers
 
         let quizResults = document.createElement('div');
@@ -234,6 +249,13 @@ function renderQuestion() {
 
         nextButton.textContent = 'Thanks for playing!';
         nextButton.disabled = true;
+
+
+        initialInput.classList.add('font-mono');
+        initialInput.setAttribute('placeholder', 'Enter your initials');
+        quizContainer.append(initialInput);
+        endQuiz();
+        saveScore(initialInput.value, correctCounter);
 
     }
 }
@@ -248,7 +270,7 @@ function resetQuiz() {
     questionIndex = 0;
     correctCounter = 0;
     secondsLeft = 60;
-    timeEl.textContent = 'Time remaining: ' + secondsLeft;
+    timeEl.textContent = 'Time remaining: ' + secondsLeft + 'seconds';
     quizContainer.textContent = '';
 }
 
@@ -257,6 +279,33 @@ function startQuiz() {
     resetQuiz();
     setTime();
     renderQuestion();
+    submitButton.hidden = false;
 }
 
 startGameButton.addEventListener('click', startQuiz);
+
+initialInput.addEventListener('keypress', function(event){
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        saveScore(initialInput.value.trim(), correctCounter);
+    }
+
+    let allScores = JSON.parse(localStorage.getItem('quizScores'));
+    if (allScores) {
+    savedScores.textContent = 'Previously recorded scores: '
+    allScores.forEach (score => {
+        let scoreEntry = document.createElement('p');
+        scoreEntry.textContent = score.initials + score.score;
+        savedScores.appendChild(scoreEntry);
+    });
+    quizContainer.appendChild(savedScores);
+    }
+
+    else {
+
+            savedScores.textContent = 'No scores recorded yet.';
+            quizContainer.appendChild(savedScores);
+
+    }
+
+})
